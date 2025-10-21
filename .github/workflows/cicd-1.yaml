@@ -4,7 +4,7 @@ on:
 #    activity type
     types: [opened,synchronize,closed]
     branches: [dev]
-    path:
+    paths:
     - 'my-app/**'
 
 jobs:
