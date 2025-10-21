@@ -2,14 +2,14 @@ name: cicd-1
 on:
   pull_request:
 #    activity type
-    types: [opend,synchronize,closed]
+    types: [opened,synchronize,closed]
     branches: [dev]
     path:
     - 'my-app/**'
 
 jobs:
   test:
-    if: github.event.action == 'opend' || github.event.action == 'synchronize'
+    if: github.event.action == 'opened' || github.event.action == 'synchronize'
     runs-on: ubuntu-latest
     steps:
     - name: checkout
