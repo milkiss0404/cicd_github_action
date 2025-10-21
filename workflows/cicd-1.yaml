@@ -1,0 +1,32 @@
+name: cicd-1
+on:
+  pull_request:
+#    activity type
+    types: [opend,synchronize,closed]
+    branches: [dev]
+    path:
+    - 'my-app/**'
+
+jobs:
+  test:
+    if: github.event.action == 'opend' || github.event.action == 'synchronize'
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+
+# pull request 가 merge 일때 실행 , cd 단계에서 진행
+  image-build:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [image-build]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
